@@ -17,7 +17,7 @@ The simulation allows interactive fluid manipulation:
 
 Smoke-like fluid emerges naturally from the simulation rules.
 
-![Fluid Simulation Demo](demo.gif)
+![Fluid Simulation Demo](smoke.gif)
 
 ---
 
