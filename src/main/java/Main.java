@@ -37,7 +37,14 @@ public class Main extends Application {
             int gridX = (int)(x / SCALE);
             int gridY = (int)(y / SCALE);
 
-            fluid.addDensity(gridX, gridY, 100);
+            if(e.isPrimaryButtonDown())
+                fluid.addDensity(gridX, gridY, 120,0,0);
+
+            if(e.isSecondaryButtonDown())
+                fluid.addDensity(gridX, gridY, 0,120,0);
+
+            if(e.isMiddleButtonDown())
+                fluid.addDensity(gridX, gridY, 0,0,120);
 
             double velX = x - prevMouseX;
             double velY = y - prevMouseY;

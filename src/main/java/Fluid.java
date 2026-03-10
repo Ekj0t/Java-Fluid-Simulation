@@ -17,7 +17,25 @@ public class Fluid {
     double[][] Vx0;
     double[][] Vy0;
 
+    public double[][] densityR;
+    public double[][] densityG;
+    public double[][] densityB;
+
+    double[][] sR;
+    double[][] sG;
+    double[][] sB;
+
     public Fluid(double diffusion, double viscosity, double dt){
+
+        //----- step 2 - Initialize Them in Constructor
+        densityR = new double[size][size];
+        densityG = new double[size][size];
+        densityB = new double[size][size];
+
+        sR = new double[size][size];
+        sG = new double[size][size];
+        sB = new double[size][size];
+        //------
 
         this.diffusion = diffusion;
         this.viscosity = viscosity;
@@ -38,13 +56,41 @@ public class Fluid {
         density[x][y] += amount;
     }
 
+    public void addDensity(int x, int y, double r, double g, double b){
+
+        if(x < 0 || x >= size || y < 0 || y >= size) return;
+
+        densityR[x][y] += r;
+        densityG[x][y] += g;
+        densityB[x][y] += b;
+    }
+
     public void addVelocity(int x, int y, double amountX, double amountY){
         if(x < 0 || x >= size || y < 0 || y >= size) return;
         Vx[x][y] += amountX;
         Vy[x][y] += amountY;
     }
 
+    void vorticityConfinement(){
+
+        for(int i=1;i<size-1;i++){
+            for(int j=1;j<size-1;j++){
+
+                double curl =
+                        Math.abs(Vy[i+1][j] - Vy[i-1][j]) -
+                                Math.abs(Vx[i][j+1] - Vx[i][j-1]);
+
+                double force = 0.2 * curl;
+
+                Vx[i][j] += force;
+                Vy[i][j] -= force;
+            }
+        }
+    }
+
     public void step(){
+
+        vorticityConfinement();
 
         diffuse(1, Vx0, Vx, viscosity);
         diffuse(2, Vy0, Vy, viscosity);
@@ -56,8 +102,13 @@ public class Fluid {
 
         project(Vx, Vy, Vx0, Vy0);
 
-        diffuse(0, s, density, diffusion);
-        advect(0, density, s, Vx, Vy);
+        diffuse(0, sR, densityR, diffusion);
+        diffuse(0, sG, densityG, diffusion);
+        diffuse(0, sB, densityB, diffusion);
+
+        advect(0, densityR, sR, Vx, Vy);
+        advect(0, densityG, sG, Vx, Vy);
+        advect(0, densityB, sB, Vx, Vy);
     }
 
     void diffuse(int b, double[][] x, double[][] x0, double diff){
