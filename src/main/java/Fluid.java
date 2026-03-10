@@ -109,6 +109,15 @@ public class Fluid {
         advect(0, densityR, sR, Vx, Vy);
         advect(0, densityG, sG, Vx, Vy);
         advect(0, densityB, sB, Vx, Vy);
+
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+
+                densityR[i][j] *= 0.995;
+                densityG[i][j] *= 0.995;
+                densityB[i][j] *= 0.995;
+            }
+        }
     }
 
     void diffuse(int b, double[][] x, double[][] x0, double diff){

@@ -25,9 +25,20 @@ public class Renderer {
         for(int i = 0; i < fluid.size; i++) {
             for(int j = 0; j < fluid.size; j++) {
 
-                double r = fluid.densityR[i][j];
-                double gVal = fluid.densityG[i][j];
-                double b = fluid.densityB[i][j];
+                double r =
+                        (fluid.densityR[i][j] +
+                                fluid.densityR[Math.min(i+1,fluid.size-1)][j] +
+                                fluid.densityR[i][Math.min(j+1,fluid.size-1)]) / 3.0;
+
+                double gVal =
+                        (fluid.densityG[i][j] +
+                                fluid.densityG[Math.min(i+1,fluid.size-1)][j] +
+                                fluid.densityG[i][Math.min(j+1,fluid.size-1)]) / 3.0;
+
+                double b =
+                        (fluid.densityB[i][j] +
+                                fluid.densityB[Math.min(i+1,fluid.size-1)][j] +
+                                fluid.densityB[i][Math.min(j+1,fluid.size-1)]) / 3.0;
 
                 r = Math.min(1, r / 50);
                 gVal = Math.min(1, gVal / 100);
