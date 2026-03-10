@@ -22,6 +22,8 @@ public class Renderer {
         g.setFill(Color.BLACK);
         g.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
+        g.setGlobalAlpha(0.85);
+
         for(int i = 0; i < fluid.size; i++) {
             for(int j = 0; j < fluid.size; j++) {
 
@@ -45,8 +47,9 @@ public class Renderer {
                 b = Math.min(1, b / 100);
 
                 g.setFill(Color.color(r, gVal, b));
-                g.fillRect(i * scale, j * scale, scale, scale);
+                g.fillOval(i * scale, j * scale, scale, scale);
             }
         }
+        g.setGlobalAlpha(1.0);
     }
 }
