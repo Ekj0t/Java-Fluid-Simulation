@@ -90,13 +90,13 @@ src/
 Clone the repository:
 
 ```
-git clone https://github.com/Ekj0t/java-fluid-simulation.git
+git clone https://github.com/Ekj0t/Java-Fluid-Simulation.git
 ```
 
 Navigate into the project:
 
 ```
-cd java-fluid-simulation
+cd Java-Fluid-Simulation
 ```
 
 Run with Maven:
