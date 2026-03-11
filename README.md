@@ -90,7 +90,7 @@ src/
 Clone the repository:
 
 ```
-git clone https://github.com/yourusername/java-fluid-simulation.git
+git clone https://github.com/Ekj0t/java-fluid-simulation.git
 ```
 
 Navigate into the project:
